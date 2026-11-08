@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Andrea Gamboa — Bioinformatics & Data Science</title>
+<meta name="description" content="Andrea Gamboa: bioinformatician and data scientist working with genomics, single-cell transcriptomics and machine learning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --text:#e6eaf0; --muted:#97a0ad;
+    --accent:#2dd4bf; --accent2:#7c9cff; --border:#252c37;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f6f8fa; --card:#ffffff; --text:#14181f; --muted:#586170; --accent:#0d9488; --accent2:#4358d6; --border:#dfe4ea; }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(600px 400px at 90% -5%, color-mix(in srgb,var(--accent) 22%,transparent), transparent 70%),
+      radial-gradient(520px 420px at -5% 35%, color-mix(in srgb,var(--accent2) 18%,transparent), transparent 70%),
+      radial-gradient(600px 400px at 100% 85%, color-mix(in srgb,var(--accent2) 14%,transparent), transparent 70%);}
+  h1,h2,h3{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:700}
+  .deco{position:absolute;pointer-events:none;z-index:0;opacity:.55}
+  .wrap{position:relative;z-index:1}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}
+  .nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+  .nav strong{font-size:1.05rem}
+  .nav nav a{margin-left:18px;color:var(--muted);font-size:.93rem}
+  .nav nav a:hover{color:var(--text);text-decoration:none}
+  @media (max-width:640px){ .nav nav a:nth-child(n+4){display:none} }
+
+  .hero-top{display:flex;align-items:center;gap:40px;justify-content:space-between}
+  .hero-text{flex:1;min-width:0}
+  .photo{width:220px;height:220px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 15%,transparent);flex-shrink:0}
+  @media (max-width:760px){ .hero-top{flex-direction:column-reverse;align-items:flex-start;gap:24px} .photo{width:150px;height:150px} }
+  .pimg{width:calc(100% + 40px);margin:-20px -20px 14px;height:150px;object-fit:cover;border-radius:12px 12px 0 0;border-bottom:1px solid var(--border)}
+  .hero{padding:88px 0 56px;position:relative}
+  .hero-top,.stats{position:relative;z-index:1}
+  .eyebrow{display:inline-block;color:var(--accent);font-weight:600;font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px;padding:5px 14px;border-radius:999px;background:color-mix(in srgb,var(--accent) 13%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+  .card,.stat,.pcard{box-shadow:0 6px 24px -10px color-mix(in srgb,var(--accent) 35%,transparent)}
+  .card,.pcard{border-top:3px solid var(--accent)}
+  .pcard:nth-child(even),.card:nth-child(even){border-top-color:var(--accent2)}
+  .stat{border-radius:16px;background:linear-gradient(145deg,var(--card),color-mix(in srgb,var(--accent) 8%,var(--card)))}
+  .stat b{font-family:Fraunces,Georgia,serif}
+  .btn{border-radius:999px}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));border-color:transparent}
+  .sparkle{color:var(--accent2);margin-left:6px}
+  .hero h1{font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.08;margin-bottom:14px}
+  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{color:var(--muted);font-size:1.12rem;max-width:640px;margin-bottom:26px}
+  .btn{display:inline-block;padding:10px 20px;border-radius:8px;font-weight:600;border:1px solid var(--accent);margin:0 10px 10px 0;color:var(--accent)}
+  .btn.primary{background:var(--accent);color:var(--on-accent,#04201c)}
+  .btn:hover{text-decoration:none;opacity:.88}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:36px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+  .stat b{display:block;font-size:1.5rem;color:var(--accent)}
+  .stat span{color:var(--muted);font-size:.86rem}
+
+  section{padding:52px 0}
+  h2{font-size:1.55rem;margin-bottom:24px}
+  h2::after{content:"";display:block;width:40px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin-top:8px;border-radius:2px}
+  .about p{color:var(--muted);max-width:720px;margin-bottom:14px}
+
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:8px}
+  .card p, .card li{color:var(--muted);font-size:.93rem}
+  .card ul{padding-left:18px}
+
+  .skill-group{margin-bottom:22px}
+  .skill-group h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{padding:5px 14px;border-radius:999px;background:color-mix(in srgb,var(--accent) 10%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 28%,var(--border));font-size:.9rem}
+  .skill-group:nth-child(even) .chip{background:color-mix(in srgb,var(--accent2) 11%,var(--card));border-color:color-mix(in srgb,var(--accent2) 30%,var(--border))}
+
+  .timeline{border-left:2px solid var(--border);margin-left:6px}
+  .item{position:relative;padding:0 0 28px 24px}
+  .item::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+  .item h3{font-size:1.05rem}
+  .item .where{color:var(--accent2);font-size:.93rem}
+  .item .when{color:var(--muted);font-size:.83rem;margin-bottom:6px}
+  .item p,.item li{color:var(--muted);font-size:.93rem}
+  .item ul{padding-left:18px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+  a.card,div.pcard{color:inherit}
+  .pcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;transition:transform .15s,border-color .15s;text-decoration:none}
+  .pcard:hover{transform:translateY(-3px);border-color:var(--accent);text-decoration:none}
+  .pcard h3{font-size:1.05rem;margin-bottom:4px}
+  .pcard .ctx{color:var(--accent2);font-size:.8rem;margin-bottom:8px}
+  .pcard p{color:var(--muted);font-size:.92rem;flex:1;margin-bottom:12px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:.75rem;padding:2px 9px;border-radius:6px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+  .meta{display:flex;gap:14px;font-size:.82rem;color:var(--muted);margin-top:10px}
+  h3.sub{font-size:1.05rem;margin:34px 0 14px;color:var(--muted)}
+  .note{color:var(--muted);font-size:.88rem;margin-top:14px}
+
+  .contact ul{list-style:none}
+  .contact li{margin-bottom:8px}
+  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.86rem;text-align:center}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <strong>Andrea Gamboa</strong>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <!-- decorative DNA helix -->
+    <svg class="deco" style="right:-30px;top:20px;width:150px;height:420px" viewBox="0 0 100 280" fill="none" aria-hidden="true">
+      <path d="M20 0 C80 35 80 70 20 105 C-40 140 -40 175 20 210 C80 245 80 265 50 280" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M80 0 C20 35 20 70 80 105 C140 140 140 175 80 210 C20 245 20 265 50 280" stroke="var(--accent2)" stroke-width="3" stroke-linecap="round"/>
+      <g stroke="var(--accent)" stroke-width="2" opacity=".6" stroke-linecap="round">
+        <path d="M32 18H68"/><path d="M26 52H74"/><path d="M26 88H74"/><path d="M33 122H67"/><path d="M26 158H74"/><path d="M26 194H74"/><path d="M34 228H66"/><path d="M44 258H56"/>
+      </g>
+    </svg>
+    <!-- decorative hexagons -->
+    <svg class="deco" style="left:-40px;bottom:-10px;width:170px;height:150px;opacity:.35" viewBox="0 0 120 105" fill="none" aria-hidden="true">
+      <g stroke="var(--accent2)" stroke-width="2">
+        <path d="M30 5l22 13v26L30 57 8 44V18z"/><path d="M74 31l22 13v26L74 83 52 70V44z"/><path d="M30 57l22 13v26L30 109 8 96V70z" opacity=".5"/>
+      </g>
+    </svg>
+    <div class="hero-top">
+      <div class="hero-text">
+        <div class="eyebrow">Bioinformatics · Computational Biology · Data Science</div>
+        <h1>Hi, I'm <span>Andrea Gamboa</span></h1>
+        <p class="lead">Bioinformatician with an MSc from the University of Bologna. I turn biological data into reliable, reproducible insight, using statistics and machine learning with careful evaluation.</p>
+        <a class="btn primary" href="#projects">See my work</a>
+        <a class="btn" href="CV_Andrea_Gamboa.pdf" target="_blank" rel="noopener">Download CV</a>
+        <a class="btn" href="https://github.com/agamboa7" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/andygamboa7/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <img id="photo" class="photo" alt="Andrea Gamboa" hidden>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>107/110</b><span>MSc Bioinformatics, Bologna</span></div>
+      <div class="stat"><b>97%</b><span>SVM accuracy, signal peptide prediction</span></div>
+      <div class="stat"><b>WGS → VCF</b><span>NGS pipelines on a compute cluster</span></div>
+      <div class="stat"><b>R · Python · Bash</b><span>Reproducible with Git, Conda, Docker</span></div>
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <h2>About</h2>
+    <p>I have hands-on experience in machine learning, deep learning, SQL and genomics, from NGS pipelines and single-cell RNA-seq to classifiers validated with cross-validation and ROC/AUC. I'm currently building more projects across these areas, and you'll see them appear below.</p>
+    <p>What drives me is finding real significance in the data I analyse: results that hold up statistically and mean something biologically. I'm especially interested in how that work can support precision medicine, vaccine research and other areas where data can change health outcomes. Based in Bologna, Italy, and open to bioinformatics, computational biology and data science roles.</p>
+    <div class="two" style="margin-top:22px">
+      <div class="card">
+        <h3>🧬 Bioinformatics & computational biology</h3>
+        <ul>
+          <li>Genomics: QC, alignment, variant calling, population genomics</li>
+          <li>Transcriptomics: bulk and single-cell RNA-seq</li>
+          <li>Differential expression and method benchmarking</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📊 Data science, ML & deep learning</h3>
+        <ul>
+          <li>Machine learning and deep learning with rigorous evaluation</li>
+          <li>Statistics, hypothesis testing, cross-validation, ROC/AUC</li>
+          <li>Python (pandas), R, SQL, REST APIs, reproducible workflows</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="grid" id="featured"></div>
+    <h3 class="sub" id="moreTitle" style="display:none">More on GitHub</h3>
+    <div class="grid" id="repoGrid"></div>
+    <p class="note" id="projectsNote"></p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div id="skillsBox"></div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="timeline" id="expList"></div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="timeline" id="eduList"></div>
+    <div class="skill-group" style="margin-top:6px">
+      <h3>Languages</h3>
+      <div class="chips">
+        <span class="chip">Spanish · Native</span>
+        <span class="chip">English · C1</span>
+        <span class="chip">Italian · B2</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:andygaamboa7@gmail.com">andygaamboa7@gmail.com</a></li>
+      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/andygamboa7/" target="_blank" rel="noopener">linkedin.com/in/andygamboa7</a></li>
+      <li><strong>GitHub:</strong> <a href="https://github.com/agamboa7" target="_blank" rel="noopener">github.com/agamboa7</a></li>
+      <li><strong>Location:</strong> Bologna, Italy</li>
+    </ul>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Andrea Gamboa</footer>
+
+<script>
+/* ============================================================
+   ✏️  EDIT THIS SECTION
+   ============================================================ */
+const GITHUB_USER = "agamboa7";
+const AUTO_LOAD_REPOS = true;   // show other public repos under "More on GitHub"
+const MAX_REPOS = 6;
+const HIDE_REPOS = ["lab2-team10","AML-basic","kunitz-hmm-project"];  // already featured above
+
+/* 🎨 COLORS: pick a theme. Options:
+   "teal" · "violet" · "coral" · "forest" · "rose" · "ocean" · "gold"
+   MODE: "auto" (follows the visitor's device), "dark" or "light".
+   Tip: to preview a theme without editing, add ?theme=violet&mode=dark to your site's URL. */
+const THEME = "violet";
+const MODE  = "light";   // pastel look works best in light; use "auto" or "dark" if you prefer
+
+/* 🖼️ IMAGES: put your files in an `images/` folder next to index.html, then write their paths here.
+   Leave "" to hide. */
+const PROFILE_PHOTO = "";        // e.g. "images/profile.jpg"  (square photo works best)
+
+// Featured projects. `image` is optional, e.g. "images/svm.png" (a plot, figure or screenshot).
+const FEATURED = [
+  {
+    name: "Single-cell RNA-seq of EEC syndrome keratinocytes",
+    context: "MSc thesis · Bicciato Lab, University of Padova",
+    description: "End-to-end scRNA-seq pipeline in R (QC, normalization, clustering, differential expression) for a rare disease, plus a benchmark of DE methods (Seurat/MAST, NEBULA-LN, muscat, pseudobulk DESeq2/edgeR) against bulk RNA-seq using precision and recall.",
+    tags: ["R","Seurat","DESeq2","edgeR","Benchmarking"],
+    image: "",
+    url: ""
+  },
+  {
+    name: "Signal peptide detection: machine learning pipeline",
+    context: "Laboratory of Bioinformatics 2 · team of 5",
+    description: "Built and compared a von Heijne statistical model and an SVM classifier for signal peptide prediction. Validated with 5-fold cross-validation, ROC/AUC, sensitivity and specificity. The SVM reached 97% accuracy.",
+    tags: ["Python","SVM","Cross-validation","ROC/AUC","Git"],
+    image: "",
+    url: "https://github.com/agamboa7/lab2-team10"
+  },
+  {
+    name: "Breast cancer diagnostic classification",
+    context: "Applied Machine Learning course",
+    description: "Malignant vs benign tumour classifier on the Breast Cancer Wisconsin dataset, evaluated with ROC/AUC, sensitivity and specificity.",
+    tags: ["Python","scikit-learn","Classification"],
+    image: "",
+    url: "https://github.com/agamboa7/AML-basic"
+  },
+  {
+    name: "Kunitz domain detection with a Hidden Markov Model",
+    context: "Bioinformatics project",
+    description: "A Hidden Markov Model approach to detecting Kunitz-type domains in protein sequences.",
+    tags: ["HMM","Protein sequences","Bioinformatics"],
+    image: "",
+    url: "https://github.com/agamboa7/kunitz-hmm-project"
+  },
+  {
+    name: "Population-genomics pipeline: pooled WGS",
+    context: "Applied Genomics course",
+    description: "Designed a pooled whole-genome sequencing pipeline (QC, alignment, variant calling, windowed FST) to study honeybee adaptation.",
+    tags: ["Bash","WGS","Variant calling","FST"],
+    image: "",
+    url: ""
+  },
+  {
+    name: "Whole-genome sequencing to VCF on an HPC cluster",
+    context: "INMEGEN, Mexico · population genomics",
+    description: "Bash NGS pipelines running raw WGS data through QC, alignment and variant calling to VCF, for a project on Indigenous populations in Latin America. Data-curation work acknowledged in a Genome Biology and Evolution paper.",
+    tags: ["Bash","NGS","HPC","VCF"],
+    image: "",
+    url: "https://doi.org/10.1093/gbe/evaf043"
+  }
+];
+
+const SKILLS = {
+  "Bioinformatics & genomics": ["NGS processing (QC → alignment → variant calling → VCF)","Bulk RNA-seq","Single-cell RNA-seq","Differential expression","Population genomics","R/Bioconductor","DESeq2","edgeR","Seurat","MAST","muscat"],
+  "Data science & machine learning": ["Python","pandas","R","SQL","Statistics & hypothesis testing","Machine learning","Deep learning","SVM","Hidden Markov Models","Cross-validation","ROC/AUC","Precision/recall","Benchmarking"],
+  "Tools & reproducibility": ["Bash/Linux","HPC cluster","Git/GitHub","Docker","Conda","R Markdown","Redis","REST APIs (UniProt, NCBI, PDB)"]
+};
+
+const EXPERIENCE = [
+  { role:"Bioinformatics Intern", where:"University of Padova · Bicciato Lab", when:"Feb 2026 – Sep 2026",
+    bullets:["Built an R scRNA-seq pipeline (preprocessing, QC, normalization, clustering, differential expression) to characterise keratinocytes from EEC syndrome, a rare disease.","Benchmarked DE methods against bulk RNA-seq as a surrogate ground truth, using precision and recall."] },
+  { role:"Research Intern", where:"National Institute of Genomic Medicine (INMEGEN), Mexico", when:"Jul 2023 – Apr 2024",
+    bullets:["Developed and ran Bash NGS pipelines on the institute's computing cluster, from raw WGS data to VCF files, for a population-genomics project.",
+             "Data-curation contribution acknowledged in Miron-Toruno et al. (2025), <em>Genome Biology and Evolution</em> 17(3), <a href='https://doi.org/10.1093/gbe/evaf043' target='_blank' rel='noopener'>doi:10.1093/gbe/evaf043</a>."] },
+  { role:"Bioinformatics Analyst", where:"Core Lab: Genomics", when:"Aug 2022 – Nov 2022",
+    bullets:["Statistical analysis of bulk RNA-seq data in R, including differential-expression testing, to characterise stress responses in <em>Aspergillus niger</em> and support metabolite-production research."] }
+];
+
+const EDUCATION = [
+  { role:"MSc Bioinformatics (LM-6, Biology)", where:"Università di Bologna, Italy", when:"Oct 2024 – Sep 2026 · 107/110",
+    text:"Thesis: “Single-Cell Transcriptomic Characterization of EEC Syndrome Keratinocytes and Benchmarking of Differential Expression Methods”." },
+  { role:"BSc Biotechnology Engineering", where:"Tecnológico de Monterrey, Mexico", when:"Aug 2019 – Jun 2023",
+    text:"Specialization in Functional Genomics and Synthetic Biology." }
+];
+/* ============================================================ */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$("year").textContent = new Date().getFullYear();
+
+/* ---------- Theme ---------- */
+const THEMES = {   // [accent, accent2] for dark and light backgrounds
+  teal:   { dark:["#2dd4bf","#7c9cff"], light:["#0d9488","#4358d6"] },
+  violet: { dark:["#b794f6","#f687b3"], light:["#7c3aed","#db2777"] },
+  coral:  { dark:["#ff8a65","#ffd166"], light:["#e0562d","#b7791f"] },
+  forest: { dark:["#6fcf97","#d9c26b"], light:["#2f855a","#8a6d1d"] },
+  rose:   { dark:["#f472b6","#fda4af"], light:["#be185d","#e11d48"] },
+  ocean:  { dark:["#38bdf8","#818cf8"], light:["#0369a1","#4f46e5"] },
+  gold:   { dark:["#fbbf24","#fb7185"], light:["#b45309","#be123c"] }
+};
+const BASE = {   // backgrounds get a soft tint of the theme's accent color
+  dark:  { bg:"#120e1c", card:"#1b1528", text:"#efeaf7", muted:"#a79fba", border:"#33284a", onAccent:"#1a1030" },
+  light: { bg:"#fbf8ff", card:"#ffffff", text:"#241b33", muted:"#6a5f7e", border:"#e8dff5", onAccent:"#ffffff" }
+};
+function applyTheme(){
+  const q = new URLSearchParams(location.search);
+  const name = THEMES[q.get("theme")] ? q.get("theme") : (THEMES[THEME] ? THEME : "teal");
+  let mode = q.get("mode") || MODE;
+  if(mode !== "dark" && mode !== "light") mode = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  const b = BASE[mode], [a1, a2] = THEMES[name][mode], s = document.documentElement.style;
+  s.setProperty("--bg", `color-mix(in srgb, ${a1} 5%, ${b.bg})`); s.setProperty("--card", b.card); s.setProperty("--text", b.text);
+  s.setProperty("--muted", b.muted); s.setProperty("--border", `color-mix(in srgb, ${a1} 14%, ${b.border})`);
+  s.setProperty("--accent", a1); s.setProperty("--accent2", a2); s.setProperty("--on-accent", b.onAccent);
+}
+applyTheme();
+
+/* ---------- Profile photo ---------- */
+if(PROFILE_PHOTO){
+  const img = $("photo");
+  img.onload = () => { img.hidden = false; };
+  img.onerror = () => { img.hidden = true; };
+  img.src = PROFILE_PHOTO;
+}
+
+$("featured").innerHTML = FEATURED.map(p => {
+  const inner = `
+    ${p.image ? `<img class="pimg" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">` : ""}
+    <h3>${esc(p.name)}</h3>
+    <div class="ctx">${esc(p.context)}</div>
+    <p>${esc(p.description)}</p>
+    <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`;
+  return p.url
+    ? `<a class="pcard" href="${esc(p.url)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<div class="pcard">${inner}</div>`;
+}).join("");
+
+$("skillsBox").innerHTML = Object.entries(SKILLS).map(([g, items]) =>
+  `<div class="skill-group"><h3>${esc(g)}</h3><div class="chips">${items.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div></div>`).join("");
+
+$("expList").innerHTML = EXPERIENCE.map(e => `
+  <div class="item"><h3>${esc(e.role)}</h3><div class="where">${esc(e.where)}</div><div class="when">${esc(e.when)}</div>
+  <ul>${e.bullets.map(b=>`<li>${b}</li>`).join("")}</ul></div>`).join("");
+
+$("eduList").innerHTML = EDUCATION.map(e => `
+  <div class="item"><h3>${esc(e.role)}</h3><div class="where">${esc(e.where)}</div><div class="when">${esc(e.when)}</div><p>${esc(e.text)}</p></div>`).join("");
+
+async function loadRepos(){
+  if(!AUTO_LOAD_REPOS) return;
+  try{
+    const r = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
+    if(!r.ok) throw new Error(r.status);
+    const repos = (await r.json())
+      .filter(x => !x.fork && !x.archived
+        && x.name.toLowerCase() !== `${GITHUB_USER}.github.io`
+        && x.name !== GITHUB_USER
+        && !HIDE_REPOS.includes(x.name))
+      .sort((a,b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at))
+      .slice(0, MAX_REPOS);
+    if(!repos.length) return;
+    $("moreTitle").style.display = "block";
+    $("repoGrid").innerHTML = repos.map(x => `
+      <a class="pcard" href="${esc(x.homepage || x.html_url)}" target="_blank" rel="noopener">
+        <h3>${esc(x.name)}</h3>
+        <p>${esc(x.description || "No description yet.")}</p>
+        <div class="meta">${x.language?`<span>● ${esc(x.language)}</span>`:""}<span>★ ${x.stargazers_count}</span></div>
+      </a>`).join("");
+    $("projectsNote").innerHTML = `Loaded automatically from <a href="https://github.com/${esc(GITHUB_USER)}" target="_blank" rel="noopener">GitHub</a>.`;
+  }catch(e){ /* silently skip if the API is unavailable */ }
+}
+loadRepos();
+</script>
+</body>
+</html>
