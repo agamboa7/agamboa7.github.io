@@ -71,6 +71,7 @@
   a.stat:hover{transform:translateY(-3px);text-decoration:none}
   .hero h1{font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.08;margin-bottom:14px}
   .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.avail{color:var(--accent);font-weight:600;font-size:.95rem;margin:-10px 0 22px}
   .hero p.lead{color:var(--muted);font-size:1.12rem;max-width:640px;margin-bottom:26px}
   .btn{display:inline-block;padding:10px 20px;border-radius:8px;font-weight:600;border:1px solid var(--accent);margin:0 10px 10px 0;color:var(--accent)}
   .btn.primary{background:var(--accent);color:var(--on-accent,#04201c)}
@@ -191,6 +192,7 @@
         <div class="eyebrow">Bioinformatics · Data Science · Biotechnology</div>
         <h1>Hi, I'm <span>Andrea Gamboa</span></h1>
         <p class="lead">Bioinformatician with an MSc from the University of Bologna. I turn biological data into reliable, reproducible insight, using statistics and machine learning with careful evaluation.</p>
+        <p class="avail">Open to bioinformatics, computational biology and data science roles</p>
         <a class="btn primary" href="#projects">See my work</a>
         <a class="btn" href="CV_Andrea_Gamboa.pdf" target="_blank" rel="noopener">Download CV</a>
         <a class="btn" href="https://github.com/agamboa7" target="_blank" rel="noopener">GitHub</a>
@@ -200,7 +202,7 @@
     </div>
 
     <div class="stats">
-      <div class="stat"><b>107/110</b><span>MSc Bioinformatics, Bologna</span></div>
+      <div class="stat"><b>107/110</b><span>MSc Bioinformatics, Bologna (final grade, max 110)</span></div>
       <div class="stat"><b>97%</b><span>SVM accuracy, signal peptide prediction</span></div>
       <a class="stat" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11954594/" target="_blank" rel="noopener"><b>Published ↗</b><span>Data curation acknowledged in Genome Biol. Evol. 2025</span></a>
       <div class="stat"><b>WGS → VCF</b><span>NGS pipelines on a compute cluster</span></div>
@@ -228,8 +230,8 @@
 
   <section id="about" class="about">
     <h2>About</h2>
-    <p>I have hands-on experience in machine learning, data handling, genomics and transcriptomics, from NGS pipelines and single-cell RNA-seq to classifiers validated with cross-validation and ROC/AUC. I'm currently building more projects across these areas, and you'll see them appear below.</p>
-    <p>What drives me is finding real significance in the data I analyse: results that hold up statistically and mean something biologically. I'm especially interested in how that work can support precision medicine, vaccine research and other areas where data can change health outcomes. Based in Bologna, Italy, and open to bioinformatics, computational biology and data science roles.</p>
+    <p>I have hands-on experience in machine learning, data handling, genomics and transcriptomics, from NGS pipelines and single-cell RNA-seq to classifiers validated with cross-validation and ROC/AUC.</p>
+    <p>What drives me is finding real significance in the data I analyse: results that hold up statistically and mean something biologically. I'm especially interested in how that work can support precision medicine, vaccine research and other areas where data can change health outcomes.</p>
     <div class="two" style="margin-top:22px">
       <div class="card">
         <h3>🧬 Bioinformatics & computational biology</h3>
@@ -254,9 +256,6 @@
   <section id="projects">
     <h2>Projects</h2>
     <div class="grid" id="featured"></div>
-    <h3 class="sub" id="moreTitle" style="display:none">More on GitHub</h3>
-    <div class="grid" id="repoGrid"></div>
-    <p class="note" id="projectsNote"></p>
   </section>
 
   <section id="skills">
@@ -333,9 +332,6 @@
    ✏️  EDIT THIS SECTION
    ============================================================ */
 const GITHUB_USER = "agamboa7";
-const AUTO_LOAD_REPOS = true;   // show other public repos under "More on GitHub"
-const MAX_REPOS = 6;
-const HIDE_REPOS = ["lab2-team10","AML-basic","kunitz-hmm-project","biohackathon-bits-2026"];  // already featured above
 
 /* 🎨 COLORS: pick a theme. Options:
    "teal" · "violet" · "coral" · "forest" · "rose" · "ocean" · "gold"
@@ -353,7 +349,7 @@ const FEATURED = [
   {
     name: "Single-cell RNA-seq of EEC syndrome keratinocytes",
     context: "MSc thesis · Bicciato Lab, University of Padova",
-    description: "End-to-end scRNA-seq pipeline in R (QC, normalization, clustering, differential expression) for a rare disease, plus a benchmark of DE methods (Seurat/MAST, NEBULA-LN, muscat, pseudobulk DESeq2/edgeR) against bulk RNA-seq using precision and recall.",
+    description: "End-to-end scRNA-seq pipeline in R (QC and doublet removal, normalization, clustering, differential expression) on 13,235 cells from 4 samples (2 EEC, a rare disease, and 2 healthy), plus a benchmark of DE methods (Seurat/MAST, NEBULA-LN, muscat, pseudobulk DESeq2/edgeR) against bulk RNA-seq using precision and recall.",
     tags: ["R","Seurat","DESeq2","edgeR","Benchmarking"],
     image: "images/thesis-umap-card.jpg",
     images: ["images/thesis-umap.jpg","images/thesis-go-heatmap.jpg"],   // click the card image to enlarge these
@@ -362,9 +358,10 @@ const FEATURED = [
   {
     name: "Signal peptide detection: machine learning pipeline",
     context: "Laboratory of Bioinformatics 2 · team of 5",
-    description: "Built and compared a von Heijne statistical model and an SVM classifier for signal peptide prediction. Validated with 5-fold cross-validation, ROC/AUC, sensitivity and specificity. The SVM reached 97% accuracy.",
-    tags: ["Python","SVM","Cross-validation","ROC/AUC","Git"],
-    image: "",
+    description: "Compared a von Heijne statistical model with an SVM for signal peptide prediction, using engineered biochemical features, Random Forest feature selection and GridSearchCV tuning. The SVM reached 97% accuracy (5-fold CV, ROC/AUC).",
+    tags: ["Python","SVM","Random Forest","Feature engineering","ROC/AUC"],
+    image: "images/svm-aa-composition-card.jpg",
+    images: ["images/svm-aa-composition.png","images/svm-feature-importance.jpg","images/svm-roc.jpg"],
     url: "https://github.com/agamboa7/lab2-team10"
   },
   {
@@ -377,10 +374,10 @@ const FEATURED = [
     url: "https://github.com/agamboa7/AML-basic"
   },
   {
-    name: "Kunitz domain detection with a Hidden Markov Model",
-    context: "Bioinformatics project",
-    description: "A Hidden Markov Model approach to detecting Kunitz-type domains in protein sequences.",
-    tags: ["HMM","Protein sequences","Bioinformatics"],
+    name: "Kunitz domain detection with a profile HMM",
+    context: "Laboratory of Bioinformatics 1 · University of Bologna",
+    description: "Built a profile HMM for the Kunitz-type protease inhibitor domain (Pfam PF00014) from structural alignments of PDB entries, then used it to annotate UniProt sequences with hmmsearch. MCC stayed above 0.92 across E-value thresholds.",
+    tags: ["Profile HMM","HMMER","CD-HIT","Structural alignment","MCC"],
     image: "",
     url: "https://github.com/agamboa7/kunitz-hmm-project"
   },
@@ -419,7 +416,7 @@ const SKILLS = {
 
 const EXPERIENCE = [
   { role:"Bioinformatics Intern", where:"University of Padova · Bicciato Lab", when:"Feb 2026 – Sep 2026",
-    bullets:["Built an R scRNA-seq pipeline (preprocessing, QC, normalization, clustering, differential expression) to characterise keratinocytes from EEC syndrome, a rare disease.","Benchmarked DE methods against bulk RNA-seq as a surrogate ground truth, using precision and recall."] },
+    bullets:["Built an R scRNA-seq pipeline (preprocessing, QC, doublet removal, normalization, clustering, differential expression) analysing 13,235 high-quality cells from 4 samples (2 EEC, 2 healthy) to characterise keratinocytes from EEC syndrome, a rare disease.","Benchmarked DE methods against bulk RNA-seq as a surrogate ground truth, using precision and recall."] },
   { role:"Research Intern", where:"National Institute of Genomic Medicine (INMEGEN), Mexico", when:"Jul 2023 – Apr 2024",
     bullets:["Developed and ran Bash NGS pipelines on the institute's computing cluster, from raw WGS data to VCF files, for a population-genomics project.",
              "Data-curation contribution acknowledged in Miron-Toruno et al. (2025), <em>Genome Biology and Evolution</em> 17(3), <a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC11954594/' target='_blank' rel='noopener'>Read the paper ↗</a> (doi:10.1093/gbe/evaf043)."] },
@@ -430,7 +427,7 @@ const EXPERIENCE = [
 const EDUCATION = [
   { role:"MSc Bioinformatics (LM-6, Biology)", where:"Università di Bologna, Italy", when:"Oct 2024 – Sep 2026 · 107/110",
     text:"Thesis: “Single-Cell Transcriptomic Characterization of EEC Syndrome Keratinocytes and Benchmarking of Differential Expression Methods”." },
-  { role:"BSc Biotechnology Engineering", where:"Tecnológico de Monterrey, Mexico", when:"Aug 2019 – Jun 2023",
+  { role:"BSc Biotechnology Engineering", where:"Tecnológico de Monterrey, Mexico", when:"Aug 2019 – Jun 2023 · 93/100",
     text:"Specialization in Functional Genomics and Synthetic Biology. Capstone project: production of natural pigments with Rhodotorula yeast." }
 ];
 // 🎓 MY JOURNEY: one card per milestone. `image` is optional (e.g. "images/bsc-graduation.jpg").
@@ -512,29 +509,6 @@ $("journeyList").innerHTML = JOURNEY.map(m => `
     <div class="mbody"><div class="year">${esc(m.year)}</div><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></div>
   </div>`).join("");
 
-async function loadRepos(){
-  if(!AUTO_LOAD_REPOS) return;
-  try{
-    const r = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
-    if(!r.ok) throw new Error(r.status);
-    const repos = (await r.json())
-      .filter(x => !x.fork && !x.archived
-        && x.name.toLowerCase() !== `${GITHUB_USER}.github.io`
-        && x.name !== GITHUB_USER
-        && !HIDE_REPOS.includes(x.name))
-      .sort((a,b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at))
-      .slice(0, MAX_REPOS);
-    if(!repos.length) return;
-    $("moreTitle").style.display = "block";
-    $("repoGrid").innerHTML = repos.map(x => `
-      <a class="pcard" href="${esc(x.homepage || x.html_url)}" target="_blank" rel="noopener">
-        <h3>${esc(x.name)}</h3>
-        <p>${esc(x.description || "No description yet.")}</p>
-        <div class="meta">${x.language?`<span>● ${esc(x.language)}</span>`:""}<span>★ ${x.stargazers_count}</span></div>
-      </a>`).join("");
-    $("projectsNote").innerHTML = `Loaded automatically from <a href="https://github.com/${esc(GITHUB_USER)}" target="_blank" rel="noopener">GitHub</a>.`;
-  }catch(e){ /* silently skip if the API is unavailable */ }
-}
 /* ---------- Lightbox (click images to enlarge) ---------- */
 let lbList = [], lbIdx = 0;
 function lbShow(){ $("lbImg").src = lbList[lbIdx]; $("lbPrev").style.display = $("lbNext").style.display = lbList.length > 1 ? "block" : "none"; }
@@ -554,7 +528,6 @@ document.querySelectorAll("img.zoomable[data-gallery]").forEach(img =>
   img.addEventListener("click", () => lbOpen(FEATURED[+img.dataset.gallery].images)));
 document.querySelectorAll(".event img.zoomable").forEach(img => img.addEventListener("click", () => lbOpen([img.getAttribute("src")])));
 
-loadRepos();
 </script>
 </body>
 </html>
